@@ -62,7 +62,7 @@ The system consists of five main components, each configurable with different AI
 
 ### 1. Clone the Repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/MintesnoteBanksira/Math_agent_developmnet.git
 cd math_agent_development
 ```
 
