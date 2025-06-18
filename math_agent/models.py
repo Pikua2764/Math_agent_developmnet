@@ -1,6 +1,5 @@
 from django.db import models
 from django.core.validators import MinValueValidator
-from django.contrib.postgres.fields import JSONField
 
 # Create your models here.
 
