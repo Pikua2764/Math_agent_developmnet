@@ -1,0 +1,77 @@
+{% extends 'math_agent/base.html' %}
+
+{% block title %}Batch Details{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h2>Batch Details</h2>
+    </div>
+    <div class="col text-end">
+        <a href="{% url 'math_agent:batch_list' %}" class="btn btn-outline-secondary">Back to Batches</a>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="card-title">{{ batch.name }}</h5>
+        <p class="card-text">
+            <small class="text-muted">Created: {{ batch.created_at|date:"F j, Y, g:i a" }}</small>
+        </p>
+        
+        <h6 class="mt-4">Statistics</h6>
+        <div class="row text-center">
+            <div class="col">
+                <div class="card bg-success text-white">
+                    <div class="card-body">
+                        <h6>Valid</h6>
+                        <h3>{{ stats.valid }}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card bg-primary text-white">
+                    <div class="card-body">
+                        <h6>Solved</h6>
+                        <h3>{{ stats.solved }}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card bg-danger text-white">
+                    <div class="card-body">
+                        <h6>Discarded</h6>
+                        <h3>{{ stats.discarded }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h6 class="mt-4">Pipeline Configuration</h6>
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Provider</th>
+                        <th>Model</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for component, config in batch.pipeline.items %}
+                    <tr>
+                        <td>{{ component|title }}</td>
+                        <td>{{ config.provider }}</td>
+                        <td>{{ config.model }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mt-4">
+            <a href="{% url 'math_agent:problems' batch.id %}" class="btn btn-primary">View Problems</a>
+        </div>
+    </div>
+</div>
+{% endblock %} 

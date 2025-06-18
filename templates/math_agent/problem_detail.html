@@ -1,0 +1,146 @@
+{% extends 'math_agent/base.html' %}
+
+{% block title %}Problem Detail{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h2>Problem Detail</h2>
+    </div>
+    <div class="col text-end">
+        <a href="{% url 'math_agent:batch_detail' problem.batch.id %}" class="btn btn-outline-secondary">Back to Batch</a>
+        <a href="{% url 'math_agent:problems' problem.batch.id %}" class="btn btn-outline-primary">View All Problems</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <!-- Problem Information -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Problem Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Subject:</strong> {{ problem.subject }}</p>
+                        <p><strong>Topic:</strong> {{ problem.topic }}</p>
+                        <p><strong>Status:</strong> 
+                            <span class="badge {% if problem.status == 'valid' %}bg-success{% elif problem.status == 'solved' %}bg-primary{% else %}bg-warning{% endif %}">
+                                {{ problem.status|title }}
+                            </span>
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Batch:</strong> {{ problem.batch.name }}</p>
+                        <p><strong>Created:</strong> {{ problem.created_at|date:"F j, Y, g:i a" }}</p>
+                        {% if problem.rejection_reason %}
+                        <p><strong>Rejection Reason:</strong> {{ problem.rejection_reason }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Question</h5>
+            </div>
+            <div class="card-body">
+                <div class="problem-text">
+                    {{ problem.question|linebreaks }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Answer -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Correct Answer</h5>
+            </div>
+            <div class="card-body">
+                <div class="answer-text">
+                    {{ problem.answer|linebreaks }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Hints -->
+        {% if problem.hints %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Hints</h5>
+            </div>
+            <div class="card-body">
+                {% for hint_key, hint_value in problem.hints.items %}
+                <div class="hint-item mb-3">
+                    <h6>Hint {{ hint_key }}</h6>
+                    <p>{{ hint_value|linebreaks }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Pipeline Configuration -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Pipeline Configuration</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Generator</h6>
+                        <p><strong>Provider:</strong> {{ problem.batch.pipeline.generator.provider|title }}</p>
+                        <p><strong>Model:</strong> {{ problem.batch.pipeline.generator.model }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Hinter</h6>
+                        <p><strong>Provider:</strong> {{ problem.batch.pipeline.hinter.provider|title }}</p>
+                        <p><strong>Model:</strong> {{ problem.batch.pipeline.hinter.model }}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h6>Checker</h6>
+                        <p><strong>Provider:</strong> {{ problem.batch.pipeline.checker.provider|title }}</p>
+                        <p><strong>Model:</strong> {{ problem.batch.pipeline.checker.model }}</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>Target</h6>
+                        <p><strong>Provider:</strong> {{ problem.batch.pipeline.target.provider|title }}</p>
+                        <p><strong>Model:</strong> {{ problem.batch.pipeline.target.model }}</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>Judge</h6>
+                        <p><strong>Provider:</strong> {{ problem.batch.pipeline.judge.provider|title }}</p>
+                        <p><strong>Model:</strong> {{ problem.batch.pipeline.judge.model }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.problem-text, .answer-text {
+    font-family: 'Times New Roman', serif;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.hint-item {
+    border-left: 3px solid #007bff;
+    padding-left: 15px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+
+.hint-item h6 {
+    color: #007bff;
+    margin-bottom: 10px;
+}
+</style>
+{% endblock %} 

@@ -1,0 +1,66 @@
+{% extends 'math_agent/base.html' %}
+
+{% block title %}All Problems{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h2>All Problems</h2>
+    </div>
+    <div class="col text-end">
+        <div class="btn-group">
+            <a href="{% url 'math_agent:batch_list' %}" class="btn btn-outline-secondary">Back to Batches</a>
+            <a href="{% url 'math_agent:generate' %}" class="btn btn-primary">Generate New Batch</a>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-4">
+                <label for="status" class="form-label">Filter by Status</label>
+                <select name="status" id="status" class="form-select" onchange="this.form.submit()">
+                    <option value="">All Statuses</option>
+                    <option value="valid" {% if status == 'valid' %}selected{% endif %}>Valid</option>
+                    <option value="solved" {% if status == 'solved' %}selected{% endif %}>Solved</option>
+                    <option value="discarded" {% if status == 'discarded' %}selected{% endif %}>Discarded</option>
+                </select>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    {% for problem in problems %}
+    <div class="col-12 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title mb-1">{{ problem.subject }} - {{ problem.topic }}</h6>
+                        <p class="text-muted mb-0 small">{{ problem.question|truncatewords:15 }}</p>
+                        {% if problem.batch %}
+                        <p class="text-muted mb-0 small">Batch: {{ problem.batch.name }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="text-end">
+                        <span class="badge {% if problem.status == 'valid' %}bg-success{% elif problem.status == 'solved' %}bg-primary{% else %}bg-danger{% endif %} mb-2">
+                            {{ problem.status|title }}
+                        </span>
+                        <br>
+                        <a href="{% url 'math_agent:problem_detail' problem.id %}" class="btn btn-outline-primary btn-sm">View</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col">
+        <div class="alert alert-info">
+            No problems found.
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %} 

@@ -1,0 +1,65 @@
+{% extends 'math_agent/base.html' %}
+
+{% block title %}Batches{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h2>Batches</h2>
+    </div>
+    <div class="col text-end">
+        <a href="{% url 'math_agent:generate' %}" class="btn btn-primary">Generate New Batch</a>
+    </div>
+</div>
+
+<div class="row">
+    {% for batch in batches %}
+    <div class="col-12 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ batch.name }}</h5>
+                <p class="card-text">
+                    <small class="text-muted">Created: {{ batch.created_at|date:"F j, Y, g:i a" }}</small>
+                </p>
+                <div class="row text-center">
+                    <div class="col">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h6>Valid</h6>
+                                <h3>{{ batch.stats.valid }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h6>Solved</h6>
+                                <h3>{{ batch.stats.solved }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h6>Discarded</h6>
+                                <h3>{{ batch.stats.discarded }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <a href="{% url 'math_agent:batch_detail' batch.id %}" class="btn btn-outline-primary">View Details</a>
+                    <a href="{% url 'math_agent:problems' batch.id %}" class="btn btn-outline-secondary">View Problems</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col">
+        <div class="alert alert-info">
+            No batches found. <a href="{% url 'math_agent:generate' %}">Generate your first batch</a>.
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %} 
