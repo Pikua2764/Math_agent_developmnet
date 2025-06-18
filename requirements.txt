@@ -1,34 +1,9 @@
 # Django and core web framework
 Django>=5.2.3,<5.3
-django-environ>=0.11.2
 
 # AI/ML libraries
 openai>=1.0.0
 google-generativeai>=0.3.0
 
 # Environment and configuration
-python-dotenv>=1.0.0
-
-# Database (SQLite is included with Python, but you might want these for production)
-# psycopg2-binary>=2.9.0  # For PostgreSQL
-# mysqlclient>=2.1.0      # For MySQL
-
-# Development and testing
-pytest>=7.0.0
-pytest-django>=4.5.0
-
-# Production deployment
-gunicorn>=21.0.0
-whitenoise>=6.5.0
-
-# Security
-cryptography>=41.0.0
-
-# Utilities
-requests>=2.31.0
-Pillow>=10.0.0  # For image processing if needed
-
-# Development tools (optional)
-# black>=23.0.0           # Code formatting
-# flake8>=6.0.0           # Linting
-# isort>=5.12.0           # Import sorting 
+python-dotenv>=1.0.0 
