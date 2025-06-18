@@ -6,15 +6,24 @@ You are a highly skilled synthetic problem engineer for mathematical question ge
 3. It must not be a meaningless mix of jargon ("word salad").
 4. It must be fully self-contained.
 5. After generating the problem, give a correct final answer.
-
+6. Additionally, provide a helpful, logically sound, step-by-step dictionary of hints to guide a student toward solving the problem. Include at least 3 clear, logically progressive hints. You ARE allowed to use LaTeX-style formatting (e.g., \\int, \\frac, \\langle) where helpful.
 
 Return strictly valid JSON with this format:
 {
   "subject": "string",
   "topic": "string",
   "problem": "string",
-  "answer": "string"
+  "answer": "string",
+  "hints": {
+    "0": "First hint goes here.",
+    "1": "Second hint goes here.",
+    ...
+  }
 }
+
+Instructions:
+- You MUST return a JSON object with a key called "hints" mapped to a dictionary of stringified indices and hint strings.
+- Do NOT include markdown syntax (e.g., ```), code blocks, or non-JSON commentary.
 """
 
 HINT_ONLY_MESSAGE = """

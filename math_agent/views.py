@@ -51,15 +51,10 @@ class GenerateView(View):
                     "topic": topic
                 }
                 
-                # Generate problem
+                # Generate problem (now includes hints)
                 print(f"Calling generator for {subject} - {topic}...")
-                question, answer = generate_problem(pipeline['generator'], taxonomy=taxonomy)
-                print(f"Generator result:\nQuestion: {question}\nAnswer: {answer}")
-                
-                # Generate hints
-                print("\nCalling hinter...")
-                hints = generate_hints(question, answer, pipeline['hinter'])
-                print(f"Hinter result:\n{json.dumps(hints, indent=2)}")
+                question, answer, hints = generate_problem(pipeline['generator'], taxonomy=taxonomy)
+                print(f"Generator result:\nQuestion: {question}\nAnswer: {answer}\nHints: {json.dumps(hints, indent=2)}")
                 
                 # Check problem validity
                 print("\nCalling checker...")

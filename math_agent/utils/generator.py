@@ -13,7 +13,7 @@ def generate_problem(pipeline_config, taxonomy=None):
         taxonomy (dict, optional): Dictionary containing subject and topic
         
     Returns:
-        tuple: (question, answer)
+        tuple: (question, answer, hints)
     """
     try:
         # Prepare the prompt based on taxonomy
@@ -31,14 +31,15 @@ def generate_problem(pipeline_config, taxonomy=None):
         # Call the model using our centralized client
         data = call_llm(pipeline_config, messages)
         
-        # Extract question and answer
+        # Extract question, answer, and hints
         question = data.get('problem', '')
         answer = data.get('answer', '')
+        hints = data.get('hints', {})
         
-        if not question or not answer:
-            raise ValueError("Invalid response: missing problem or answer")
+        if not question or not answer or not hints:
+            raise ValueError("Invalid response: missing problem, answer, or hints")
         
-        return question, answer
+        return question, answer, hints
         
     except Exception as e:
         raise Exception(f"Error generating problem: {str(e)}") 

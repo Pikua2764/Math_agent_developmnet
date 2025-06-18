@@ -71,26 +71,6 @@
                     </div>
                 </div>
 
-                <!-- Hinter Configuration -->
-                <div class="mb-4">
-                    <h5>Hinter</h5>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="hinter_provider" class="form-label">Provider</label>
-                            <select class="form-select" id="hinter_provider" name="hinter_provider">
-                                <option value="google" selected>Google</option>
-                                <option value="openai">OpenAI</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="hinter_model" class="form-label">Model</label>
-                            <select class="form-select" id="hinter_model" name="hinter_model">
-                                <option value="gemini-2.5-pro-preview-06-05" selected>Gemini 2.5 Pro</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Checker Configuration -->
                 <div class="mb-4">
                     <h5>Checker</h5>
@@ -193,7 +173,6 @@ fetch('{% static "math_agent/models.json" %}')
         modelsConfig = config;
         // Initialize all model dropdowns
         updateModelOptions('generator');
-        updateModelOptions('hinter');
         updateModelOptions('checker');
         updateModelOptions('target');
         updateModelOptions('judge');
@@ -204,7 +183,7 @@ fetch('{% static "math_agent/models.json" %}')
     });
 
 // Add event listeners for provider changes
-['generator', 'hinter', 'checker', 'target', 'judge'].forEach(component => {
+['generator', 'checker', 'target', 'judge'].forEach(component => {
     document.getElementById(`${component}_provider`).addEventListener('change', function() {
         updateModelOptions(component);
     });
@@ -225,10 +204,6 @@ document.getElementById('generateForm').addEventListener('submit', function(e) {
         generator: { 
             provider: formData.get('generator_provider') || 'google',
             model: formData.get('generator_model') || 'gemini-2.5-pro-preview-06-05'
-        },
-        hinter: { 
-            provider: formData.get('hinter_provider') || 'google',
-            model: formData.get('hinter_model') || 'gemini-2.5-pro-preview-06-05'
         },
         checker: { 
             provider: formData.get('checker_provider') || 'openai',
