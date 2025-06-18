@@ -1,4 +1,5 @@
 {% extends 'math_agent/base.html' %}
+{% load custom_filters %}
 
 {% block title %}Problem Detail{% endblock %}
 
@@ -79,6 +80,34 @@
                     <p>{{ hint_value|linebreaks }}</p>
                 </div>
                 {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Similar Problems -->
+        {% if similar_problems and similar_problems|length > 0 %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Similar Problems</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    {% for sim in similar_problems %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>ID:</strong> {{ sim.id }}<br>
+                            <strong>Subject:</strong> {{ sim.subject }}<br>
+                            <strong>Topic:</strong> {{ sim.topic }}<br>
+                            {% with score=similarity_scores|dict_get:sim.id %}
+                                {% if score %}
+                                    <strong>Similarity:</strong> {{ score|stringformat:".2f" }}
+                                {% endif %}
+                            {% endwith %}
+                        </div>
+                        <a href="{% url 'math_agent:problem_detail' sim.id %}" class="btn btn-outline-primary btn-sm">View Detail</a>
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
         {% endif %}

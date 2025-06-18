@@ -11,6 +11,7 @@ from .utils.judge import judge_solution
 from datetime import datetime
 import json
 import random
+from .utils.similarity_utils import SIMILARITY_THRESHOLD
 
 # Create your views here.
 
@@ -51,10 +52,10 @@ class GenerateView(View):
                     "topic": topic
                 }
                 
-                # Generate problem (now includes hints)
+                # Generate problem (now includes hints, embedding, similar_problems)
                 print(f"Calling generator for {subject} - {topic}...")
-                question, answer, hints = generate_problem(pipeline['generator'], taxonomy=taxonomy)
-                print(f"Generator result:\nQuestion: {question}\nAnswer: {answer}\nHints: {json.dumps(hints, indent=2)}")
+                question, answer, hints, embedding, similar_problems = generate_problem(pipeline['generator'], taxonomy=taxonomy)
+                print(f"Generator result:\nQuestion: {question}\nAnswer: {answer}\nHints: {json.dumps(hints, indent=2)}\nSimilar: {similar_problems}")
                 
                 # Check problem validity
                 print("\nCalling checker...")
@@ -64,7 +65,7 @@ class GenerateView(View):
                 if not is_valid:
                     print(f"Rejection reason: {rejection_reason}")
                     # Create discarded problem
-                    Problem.objects.create(
+                    problem = Problem.objects.create(
                         subject=subject,
                         topic=topic,
                         question=question,
@@ -72,8 +73,20 @@ class GenerateView(View):
                         hints=hints,
                         rejection_reason=rejection_reason,
                         status='discarded',
-                        batch=batch
+                        batch=batch,
+                        problem_embedding=embedding,
+                        similar_problems=similar_problems
                     )
+                    # Update similar problems' similar_problems field
+                    for sim_id, sim_score in similar_problems.items():
+                        try:
+                            sim_prob = Problem.objects.get(id=sim_id)
+                            sim_dict = sim_prob.similar_problems or {}
+                            sim_dict[str(problem.id)] = sim_score
+                            sim_prob.similar_problems = sim_dict
+                            sim_prob.save(update_fields=['similar_problems'])
+                        except Problem.DoesNotExist:
+                            continue
                     continue
                 
                 # Use corrected hints if provided
@@ -93,15 +106,27 @@ class GenerateView(View):
                 
                 # Create problem with appropriate status
                 status = 'solved' if is_solved else 'valid'
-                Problem.objects.create(
+                problem = Problem.objects.create(
                     subject=subject,
                     topic=topic,
                     question=question,
                     answer=answer,
                     hints=hints,
                     status=status,
-                    batch=batch
+                    batch=batch,
+                    problem_embedding=embedding,
+                    similar_problems=similar_problems
                 )
+                # Update similar problems' similar_problems field
+                for sim_id, sim_score in similar_problems.items():
+                    try:
+                        sim_prob = Problem.objects.get(id=sim_id)
+                        sim_dict = sim_prob.similar_problems or {}
+                        sim_dict[str(problem.id)] = sim_score
+                        sim_prob.similar_problems = sim_dict
+                        sim_prob.save(update_fields=['similar_problems'])
+                    except Problem.DoesNotExist:
+                        continue
                 
                 if status == 'valid':
                     valid_count += 1
@@ -159,6 +184,10 @@ class ProblemDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         # Add batch information
         context['batch'] = self.object.batch
+        # Add similar problems queryset
+        similar_ids = list(map(int, self.object.similar_problems.keys())) if self.object.similar_problems else []
+        context['similar_problems'] = Problem.objects.filter(id__in=similar_ids) if similar_ids else []
+        context['similarity_scores'] = self.object.similar_problems if self.object.similar_problems else {}
         return context
 
 class ProblemListView(ListView):

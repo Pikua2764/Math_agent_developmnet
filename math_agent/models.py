@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator
+from django.contrib.postgres.fields import JSONField
 
 # Create your models here.
 
@@ -34,6 +35,8 @@ class Problem(models.Model):
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE, related_name='problems')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    problem_embedding = models.JSONField(null=True, blank=True)
+    similar_problems = models.JSONField(default=dict, blank=True)
 
     def __str__(self):
         return f"{self.subject} - {self.topic} - {self.status}"

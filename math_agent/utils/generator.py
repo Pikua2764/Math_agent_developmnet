@@ -2,6 +2,7 @@ import json
 from django.conf import settings
 from .system_messages import GENERATOR_MESSAGE
 from .call_llm_clients import call_llm
+from .similarity_utils import find_similar_problems
 
 def generate_problem(pipeline_config, taxonomy=None):
     """
@@ -13,7 +14,7 @@ def generate_problem(pipeline_config, taxonomy=None):
         taxonomy (dict, optional): Dictionary containing subject and topic
         
     Returns:
-        tuple: (question, answer, hints)
+        tuple: (question, answer, hints, embedding, similar_problems)
     """
     try:
         # Prepare the prompt based on taxonomy
@@ -39,7 +40,10 @@ def generate_problem(pipeline_config, taxonomy=None):
         if not question or not answer or not hints:
             raise ValueError("Invalid response: missing problem, answer, or hints")
         
-        return question, answer, hints
+        # Similarity check
+        similar_problems, embedding = find_similar_problems(question)
+        
+        return question, answer, hints, embedding, similar_problems
         
     except Exception as e:
         raise Exception(f"Error generating problem: {str(e)}") 
