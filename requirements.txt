@@ -1,10 +1,7 @@
-# Django and core web framework
-Django>=5.2.3,<5.3
-
-# AI/ML libraries
-openai>=1.0.0
-google-generativeai>=0.3.0
-numpy>=1.24.0
-
-# Environment and configuration
-python-dotenv>=1.0.0 
+Django>=5.2.3
+python-dotenv
+openai
+google-generativeai
+sentence-transformers
+scikit-learn
+numpy
