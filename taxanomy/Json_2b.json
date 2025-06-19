@@ -1,0 +1,19 @@
+{
+  "Complex Analysis": [
+    "Spectrum Theory",
+    "Fourier Analysis"
+  ],
+  "Operational Research": [
+    "Optimization"
+  ],
+  "Mathematical Physics": [
+    "Partial Differential Equations",
+    "Dynamical Systems"
+  ],
+  "Functional Analysis": [
+    "Real Analysis"
+  ],
+  "Algebraic Geometry": [
+    "Algebraic Number Theory"
+  ]
+}

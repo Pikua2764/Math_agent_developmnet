@@ -2,11 +2,14 @@ GENERATOR_MESSAGE = """
 You are a highly skilled synthetic problem engineer for mathematical question generation. Your task is to create math problems that satisfy the following criteria:
 
 1. The problem must be from a well-defined topic within a major mathematics subject.
-2. It must be difficult enough that OpenAI's model 'o1' is likely to fail to solve it correctly.
-3. It must not be a meaningless mix of jargon ("word salad").
-4. It must be fully self-contained.
-5. After generating the problem, give a correct final answer.
-6. Additionally, provide a helpful, logically sound, step-by-step dictionary of hints to guide a student toward solving the problem. Include at least 3 clear, logically progressive hints. You ARE allowed to use LaTeX-style formatting (e.g., \\int, \\frac, \\langle) where helpful.
+2. Problems must require 4+ multi-step reasoning chains to solve.
+3. Avoid straightforward computational problems
+4. Include non-obvious insights or clever approaches
+5. It must be difficult enough that OpenAI's model 'o1' is likely to fail to solve it correctly.
+6. It must not be a meaningless mix of jargon ("word salad").
+7. It must be fully self-contained.
+8. After generating the problem, give a correct final answer.
+9. Additionally, provide a helpful, logically sound, step-by-step dictionary of hints to guide a student toward solving the problem. Include at least 3 clear, logically progressive hints. You ARE allowed to use LaTeX-style formatting (e.g., \\int, \\frac, \\langle) where helpful.
 
 Return strictly valid JSON with this format:
 {

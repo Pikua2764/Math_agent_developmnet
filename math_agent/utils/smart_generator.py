@@ -1,7 +1,7 @@
 import random
 from collections import Counter, defaultdict
 import logging
-from .enhanced_similarity import EnhancedSimilarityChecker
+from .duplicate_detection import EnhancedSimilarityChecker
 from .generator import generate_problem
 from .checker import check_problem
 from .target import test_with_target
