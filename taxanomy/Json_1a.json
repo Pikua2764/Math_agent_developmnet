@@ -1,0 +1,46 @@
+{
+    "Fourier Analysis": [
+        "Fourier Series",
+        "Fourier Transform",
+        "Discrete Fourier Transform",
+        "Fast Fourier Transform",
+        "Windowing Functions",
+        "Spectral Analysis"
+    ],
+    "Optimization": [
+        "Linear Programming",
+        "Nonlinear Programming",
+        "Convex Optimization",
+        "Gradient Descent Methods",
+        "Constrained Optimization",
+        "Integer Programming",
+        "Multi-objective Optimization"
+    ],
+    "Dynamical Systems": [
+        "Phase Space Analysis",
+        "Stability Theory",
+        "Bifurcation Theory",
+        "Chaos Theory",
+        "Lyapunov Exponents",
+        "Attractors and Repellers",
+        "Discrete Dynamical Systems"
+    ],
+    "Real Analysis": [
+        "Metric Spaces",
+        "Continuity and Limits",
+        "Measure Theory",
+        "Lebesgue Integration",
+        "Topology of Real Line",
+        "Sequences and Series of Functions",
+        "Functional Analysis"
+    ],
+    "Algebraic Number Theory": [
+        "Algebraic Integers",
+        "Number Fields",
+        "Ideals and Factorization",
+        "Class Groups",
+        "Galois Theory",
+        "Local Fields",
+        "Diophantine Equations"
+    ]
+}
