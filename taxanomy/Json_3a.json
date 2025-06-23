@@ -1,0 +1,72 @@
+{
+  "Complex Analysis": [
+    "Spectrum Theory",
+    "Fourier Analysis",
+    "Holomorphic Functions",
+    "Meromorphic Functions",
+    "Riemann Surfaces",
+    "Conformal Mappings",
+    "Analytic Continuation",
+    "Residue Theory",
+    "Hardy Spaces",
+    "Bergman Spaces",
+    "Nevanlinna Theory",
+    "Several Complex Variables"
+  ],
+  "Operational Research": [
+    "Optimization",
+    "Linear Programming",
+    "Nonlinear Programming",
+    "Integer Programming",
+    "Stochastic Programming",
+    "Dynamic Programming",
+    "Game Theory",
+    "Queueing Theory",
+    "Network Optimization",
+    "Combinatorial Optimization",
+    "Multi-objective Optimization",
+    "Robust Optimization"
+  ],
+  "Mathematical Physics": [
+    "Partial Differential Equations",
+    "Dynamical Systems",
+    "Quantum Mechanics",
+    "Statistical Mechanics",
+    "Field Theory",
+    "Integrable Systems",
+    "Hamiltonian Mechanics",
+    "Lagrangian Mechanics",
+    "Symmetry and Conservation Laws",
+    "Soliton Theory",
+    "Variational Methods",
+    "Scattering Theory"
+  ],
+  "Functional Analysis": [
+    "Real Analysis",
+    "Banach Spaces",
+    "Hilbert Spaces",
+    "Operator Theory",
+    "Topological Vector Spaces",
+    "Measure Theory",
+    "Integration Theory",
+    "Distribution Theory",
+    "Sobolev Spaces",
+    "Weak Convergence",
+    "Fixed Point Theory",
+    "Spectral Theory"
+  ],
+  "Algebraic Geometry": [
+    "Algebraic Number Theory",
+    "Schemes",
+    "Sheaf Theory",
+    "Cohomology",
+    "Algebraic Curves",
+    "Algebraic Surfaces",
+    "Moduli Spaces",
+    "Intersection Theory",
+    "Toric Geometry",
+    "Arithmetic Geometry",
+    "Galois Theory",
+    "Class Field Theory"
+  ]
+}

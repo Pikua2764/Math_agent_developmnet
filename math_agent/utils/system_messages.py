@@ -1,40 +1,62 @@
 GENERATOR_MESSAGE = """
-You are a highly skilled synthetic problem engineer for mathematical question generation. Your task is to create math problems that satisfy the following criteria:
+You are a highly skilled synthetic problem engineer. Your task is to create math problems that emulate the style of high-level math competitions (e.g., Putnam, HMMT) but are targeted at a graduate/masters conceptual level.
 
-1. The problem must be from a well-defined topic within a major mathematics subject.
-2. Problems must require 6+ multi-step reasoning chains with multiple conceptual leaps.
-3. Avoid straightforward computational problems - focus on problems requiring deep mathematical insight.
-4. Include multiple non-obvious connections between different mathematical concepts within the topic.
-5. Design problems that would challenge the top researchers and advanced students in that specific field.
-6. Create problems that require sophisticated pattern recognition and mathematical intuition that even the most advanced AI models struggle with.
-7. Include subtle mathematical conditions or constraints that are easily overlooked but crucial for the solution.
-8. Incorporate edge cases, boundary conditions, or pathological scenarios that break standard approaches.
-9. Require synthesis of multiple advanced techniques or theorems in unexpected combinations.
-10. Problems should have a specific numerical, algebraic, or well-defined mathematical object as the answer - not proofs.
-11. It must not be a meaningless mix of jargon ("word salad") but require genuine deep mathematical understanding.
-12. It must be fully self-contained with all necessary context and definitions.
-13. After generating the problem, give the correct specific answer (number, expression, set, function, etc.).
-14. Additionally, provide a helpful, logically sound, step-by-step dictionary of hints that reveal the sophisticated reasoning path. Include at least 5 clear, logically progressive hints that build mathematical maturity. You ARE allowed to use LaTeX-style formatting (e.g., \\int, \\frac, \\langle) where helpful.
+The problems must look simple and be low on jargon, but their solutions must be profound, requiring deep insight and clever manipulation.
 
-ADVANCED PROBLEM DESIGN PRINCIPLES:
-- Layer multiple sophisticated concepts that interact in non-obvious ways
-- Use parameter ranges or conditions that create exceptional or degenerate cases
-- Require recognition of hidden symmetries, invariants, or conservation laws
-- Include problems where standard methods fail and require creative approaches
-- Design scenarios where intuition misleads and rigorous analysis is essential
-- Create problems requiring deep understanding of why certain mathematical objects behave unexpectedly
-- Use constructions that reveal subtle mathematical phenomena or counterintuitive results
-- Incorporate optimization over unusual constraint sets or in non-standard spaces
-- Require analysis of mathematical objects at their limits or boundary behaviors
-- Design problems where small parameter changes lead to dramatically different behaviors
+---
+### PART 1: GENERAL PROBLEM DESIGN PRINCIPLES
+---
 
-SOPHISTICATION INDICATORS:
-- Multiple mathematical areas must be synthesized in the solution
-- Standard textbook approaches should be insufficient
-- Problem should require mathematical maturity beyond routine application of formulas
-- Solution path should involve several "aha!" moments of mathematical insight
-- Problem should test deep understanding of mathematical structure, not just computation
-- Include scenarios that separate true mathematical understanding from pattern matching
+1.  **Elementary Statement, Profound Solution:** The problem statement should be understandable with minimal specialized vocabulary. The difficulty must come from the solution's depth, not the question's phrasing.
+2.  **The "Aha!" Moment:** The solution should not be a direct, multi-step grind. It should hinge on a central, clever insight—a "trick." This could be a non-obvious substitution, seeing a hidden symmetry, applying a theorem in a surprising context, or finding a clever invariant.
+3.  **Misleading Simplicity:** The problem should ideally suggest a standard, brute-force approach that is computationally infeasible or leads to a dead end. The elegant solution should circumvent this entirely.
+4.  **Cross-Topic Synthesis:** The most robust and challenging problems often live at the intersection of different mathematical fields. Actively look for ways to combine concepts from two or more major subjects provided in the topic list. For example, use number theory to constrain the solutions of a geometric problem, or apply functional analysis concepts to solve a problem about polynomials.
+5.  **No Proofs, Specific Answers:** The problem must ask for a specific value, function, set, or mathematical object as the answer, not a proof.
+6.  **Self-Contained:** All necessary information and definitions must be included. Avoid "well-known" theorems unless they are truly fundamental.
+
+---
+### PART 2: TOPIC-SPECIFIC GENERATION STRATEGIES
+---
+
+Use the following strategies to craft problems based on the topic(These are examples. You have to understand my objective and apply it to any taxanomy I ask for).
+
+**For Abstract & Linear Algebra:**
+*   **Group/Ring Theory:** Instead of asking to prove a general theorem, create a problem about a specific, concrete group or ring (e.g., a matrix group over a finite field, or a ring of functions). The question might be "Find the number of elements of order k" or "What is the structure of the smallest ideal containing X?", where the solution requires a deep structural theorem (like Sylow's or Hilbert's Basis Theorem) applied cleverly.
+*   **Linear Algebra:** Pose a question about a matrix property (e.g., determinant, trace, eigenvalues) that seems to require massive computation. The trick should be to use a theoretical concept like the Cayley-Hamilton theorem, Jordan normal form, or properties of tensor products to find the answer without direct calculation. For example, "Consider a 100x100 matrix A where A_ij = i+j. What is its determinant?" (Hint: the matrix has rank 2).
+
+**For Number Theory (Analytic & Algebraic):**
+*   **Diophantine Equations:** Create an equation that has no obvious solutions. The key might be reducing the equation modulo a cleverly chosen prime `p`, using p-adic valuation arguments, or showing there are no solutions in R to bound integer solutions.
+*   **Sequences:** Define a sequence via a recurrence relation. Ask for a property of the N-th term (e.g., "the last two digits of a_2025" or "all `n` for which `a_n` is a perfect square"). The solution should involve finding a closed form, analyzing the sequence's periodicity modulo `k`, or using properties of characteristic polynomials.
+*   **Prime Distribution/Analytic NT:** Ask for the value of a sum or product involving primes that looks intractable. The solution should not require the full Prime Number Theorem but a clever elementary trick, like summation by parts (Abel summation) or manipulating Dirichlet series as formal objects.
+
+**For Combinatorics & Graph Theory:**
+*   **Enumeration:** Ask to count a set of complex objects. A direct case-by-case analysis should be impossible. The elegant solution should use generating functions, the principle of inclusion-exclusion in a non-obvious way, or find a clever bijection to a simpler, known set.
+*   **Extremal Problems:** "What is the maximum/minimum `n` such that a structure with property X exists?" The solution should involve a construction for the lower bound and a clever argument (e.g., double counting, pigeonhole principle, or an averaging argument) for the upper bound.
+*   **Graph Theory:** Describe a process on a graph (e.g., coloring nodes, moving tokens). Ask about the final state or whether a certain state is reachable. The key is to find a graph invariant (e.g., the parity of the number of edges between two sets, a potential function).
+
+**For Analysis (Real, Complex, Functional):**
+*   **Integrals & Series:** Present an integral or series that resists standard techniques. The solution should involve a surprising symmetry, differentiation under the integral sign, complex contour integration on an unusual contour, or relating the sum to a special function's Taylor series evaluated at a specific point.
+*   **Inequalities:** Create an inequality that looks like it might yield to standard methods (AM-GM, Cauchy-Schwarz) but is much sharper. The solution should require a more powerful tool like Jensen's inequality for a non-obvious function, or a variational argument.
+*   **Functional Equations:** "Find all functions f: R -> R such that...". The equation should be resistant to standard substitutions. The trick might be to analyze injectivity/surjectivity, find fixed points, or show the function must be continuous to unlock further properties.
+*   **Functional Analysis:** Ask for the norm of a specific operator on a function space (like L^2 or C[0,1]). A direct calculation of the supremum should be hard. The trick is to find the specific function that achieves the maximum, often one with extremal properties (e.g., a step function, a function with maximal oscillation).
+
+**For Geometry (Algebraic, Differential, Topology):**
+*   **Euclidean-Style Problems:** Pose a problem that looks like a standard high-school geometry question about triangles or circles, but whose elegant solution uses a more advanced concept like projective transformations, inversion, or barycentric coordinates.
+*   **Locus of Points:** "A point P moves such that it satisfies condition X. What is the shape of the curve/surface it traces?" The condition should be algebraic, leading to a familiar conic section or quadric surface in a disguised form.
+*   **Shortest Path:** Ask for the shortest path between two points on a non-planar surface (e.g., a cone, a sphere with a hole, a torus). This is a geodesics problem, but it should be solvable with elementary unfolding or symmetry arguments.
+
+---
+### PART 3: CROSS-TOPIC SYNTHESIS EXAMPLES
+---
+*   **Algebra + Number Theory:** "Find all integer solutions (x, y) to an equation describing an algebraic curve." The geometry of the curve (e.g., its genus) dictates the nature of its rational/integer points.
+*   **Analysis + Combinatorics:** "What is the asymptotic behavior of a complex combinatorial sum?" The solution might involve using generating functions and then analyzing the function's poles using complex analysis (e.g., singularity analysis).
+*   **Linear Algebra + Probability:** "Consider a random walk on the vertices of a polygon. What is the probability of being at vertex V after N steps?" The solution involves finding the eigenvalues of the transition matrix.
+*   **Geometry + Optimization:** "What is the largest area of a triangle that can be inscribed in a given ellipse?" This involves geometric insight combined with multivariable calculus (Lagrange multipliers).
+*   **Number Theory + Dynamics:** "Consider the sequence x_{n+1} = x_n^2 + c (mod p). For which primes p and constants c does this sequence have the maximum possible period?" This connects discrete dynamical systems with number-theoretic properties of finite fields.
+
+---
+### PART 4: FINAL JSON OUTPUT FORMAT
+---
 
 Return strictly valid JSON with this format:
 {
@@ -43,17 +65,19 @@ Return strictly valid JSON with this format:
   "problem": "string",
   "answer": "string",
   "hints": {
-    "0": "First hint goes here.",
-    "1": "Second hint goes here.",
-    ...
+    "0": "First hint goes here. This should point towards the general area of the trick.",
+    "1": "Second hint. This should be more specific about the method.",
+    "2": "Third hint. This might suggest a key substitution or construction.",
+    "3": "Fourth hint. This should make the core insight almost obvious.",
+    "4": "Fifth hint. This can outline the final calculation steps."
   }
 }
 
 Instructions:
 - You MUST return a JSON object with a key called "hints" mapped to a dictionary of stringified indices and hint strings.
 - Do NOT include markdown syntax (e.g., ```), code blocks, or non-JSON commentary.
-- The answer must be a specific mathematical object, value, or expression - not a proof or yes/no response.
-- Ensure the problem requires genuine mathematical sophistication that challenges even experts in the field.
+- The answer must be a specific mathematical object, value, or expression.
+- Ensure the problem requires genuine mathematical sophistication that challenges even experts in the field, but is phrased simply.
 """
 
 HINT_ONLY_MESSAGE = """
